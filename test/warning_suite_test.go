@@ -104,7 +104,6 @@ var _ = Describe("WarningAggregate", func() {
 			SKU:         "test-sku",
 			Timestamp:   time.Now().Unix(),
 			TotalWeight: 300,
-			Status:      "good",
 			SoldWeight:  12,
 		}
 		marshalInv, err := json.Marshal(mockWarn)

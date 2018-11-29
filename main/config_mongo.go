@@ -83,20 +83,11 @@ func createMongoCollection(
 		mongo.IndexConfig{
 			ColumnConfig: []mongo.IndexColumnConfig{
 				mongo.IndexColumnConfig{
-					Name: "warningID",
+					Name: "itemID",
 				},
 			},
 			IsUnique: true,
-			Name:     "warningID_index",
-		},
-		mongo.IndexConfig{
-			ColumnConfig: []mongo.IndexColumnConfig{
-				mongo.IndexColumnConfig{
-					Name:        "timestamp",
-					IsDescOrder: true,
-				},
-			},
-			Name: "timestamp_index",
+			Name:     "itemID_index",
 		},
 	}
 

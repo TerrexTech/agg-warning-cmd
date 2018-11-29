@@ -44,6 +44,25 @@ func Insert(collection *mongo.Collection, event *model.Event) *model.Document {
 		}
 	}
 
+	if warn.WarningID == (uuuid.UUID{}) {
+		warn.WarningID, err = uuuid.NewV4()
+		if err != nil {
+			err = errors.New("Unable to create warningID")
+			err = errors.Wrap(err, "Insert")
+			log.Println(err)
+			return &model.Document{
+				AggregateID:   event.AggregateID,
+				CorrelationID: event.CorrelationID,
+				Error:         err.Error(),
+				ErrorCode:     InternalError,
+				EventAction:   event.EventAction,
+				ServiceAction: event.ServiceAction,
+				UUID:          event.UUID,
+			}
+		}
+	}
+
+	log.Println("%%%%%%%%%%%%%%%%", warn.WarningID.String())
 	insertResult, err := collection.InsertOne(warn)
 	if err != nil {
 		err = errors.Wrap(err, "Insert: Error Inserting Warning into Mongo")
